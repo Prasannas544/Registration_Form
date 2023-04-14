@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StepApp</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600&family=Roboto&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-font-smoothing: antialiased;
+            -o-font-smoothing: antialiased;
+            font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 100;
+            font-size: 12px;
+            line-height: 30px;
+            color: #777;
+            background: #071128;
+        }
+
+        .container {
+            max-width: 528px;
+            width: 50%;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        #contact {
+            height: 95vh;
+            overflow: scroll;
+        }
+
+        #contact::-webkit-scrollbar {
+            display: none;
+        }
+
+        #contact h3 {
+            display: block;
+            font-style: normal;
+            font-weight: 600;
+            font-size: clamp(1.5rem, 2.5vw, 2.3rem);
+            line-height: 45px;
+            padding-bottom: 20px;
+            color: #3F3F3F;
+            text-align: center;
+        }
+
+        #contact input[type="text"],
+        #contact input[type="email"],
+        #contact input[type="tel"],
+        #contact input[type="url"],
+        #contact textarea {
+            width: 100%;
+            border: none;
+            padding: 13px;
+            background: #E9EEF2;
+            border-radius: 8px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #707070;
+            max-width: 100%;
+            resize: none;
+        }
+
+        #contact textarea {
+            border-radius: 0px !important;
+            padding: 0;
+            border-bottom: 1px solid #C9C9C9;
+        }
+
+        select {
+            width: 100%;
+            height: 3rem;
+            border: none;
+            background: #E9EEF2;
+            border-radius: 8px;
+            /*margin: 0 0 5px;*/
+            padding: 13px;
+            /*padding-right: 30px;*/
+            font: 400 14px/21px Poppins;
+            color: #707070;
+            /* -webkit-appearance: none; */
+
+        }
+
+        #contact input[type="text"]:hover,
+        #contact input[type="email"]:hover,
+        #contact input[type="tel"]:hover,
+        #contact input[type="url"]:hover,
+        #contact textarea:hover {
+            -webkit-transition: border-color 0.3s ease-in-out;
+            -moz-transition: border-color 0.3s ease-in-out;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+
+        #contact button[type="submit"] {
+            cursor: pointer;
+            width: 100%;
+            border: none;
+            background: #08BD80;
+            color: #FFF;
+            font-size: 20px;
+            margin: 0 0 5px;
+            padding: 16px 20px;
+            border-radius: 8px;
+
+        }
+
+        #contact button[type="submit"]:hover {
+            background: #08BD80;
+            -webkit-transition: background 0.3s ease-in-out;
+            -moz-transition: background 0.3s ease-in-out;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #contact button[type="submit"]:active {
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .copyright {
+            text-align: center;
+        }
+
+        #contact input:focus,
+        #contact textarea:focus {
+            outline: none;
+            padding: 0;
+            border-bottom: 1px solid #C9C9C9;
+            height: 3rem;
+            padding-left: 1rem;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #707070;
+        }
+
+        :-moz-placeholder {
+            color: #707070;
+        }
+
+        ::-moz-placeholder {
+            color: #707070;
+        }
+
+        :-ms-input-placeholder {
+            color: #707070;
+        }
+
+        #contact input[type="text"],
+        #contact input[type="email"],
+        #contact input[type="tel"],
+        #contact input[type="url"],
+        #contact textarea {
+            font: 400 12px/16px Poppins;
+        }
+
+        #contact {
+            background: #FCFCFC;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        fieldset {
+            border: medium none !important;
+            /*margin: 0 0 10px;*/
+            min-width: 100%;
+            padding: 0;
+            width: 100%;
+        }
+
+        .first_page_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 20vh auto;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            #contact {
+                margin: 20px auto;
+            }
+
+            .first_page_container {
+                margin: 0vh auto;
+                overflow-x: hidden;
+                flex-direction: column;
+            }
+
+            .right_side {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 1rem;
+            }
+
+            .right_side img {
+                width: 90%;
+            }
+        }
+
+        .right_side {
+            background: linear-gradient(174.1deg, #0E1E43 4.68%, rgba(20, 48, 111, 0.286458) 115.93%, rgba(18, 46, 108, 0) 115.94%);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .right_side img {
+            max-width: 400px;
+        }
+
+        .left_side {
+            padding: 1rem 1.5rem;
+            display: grid;
+            gap: 4rem;
+        }
+
+        .image_container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.2rem;
+            ;
+        }
+
+        .input_container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #FFF;
+            border-radius: 8px;
+            /*padding: 1rem 0rem 1rem 1.5rem;*/
+            height: 3rem;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .input_container span {
+            font: 500 18px/27px Poppins;
+            color: #545151;
+        }
+
+        .enroll_now {
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            background: #08BD80;
+            padding: 1.1rem 0rem;
+            color: #FFF;
+            font: 600 18px/27px Poppins;
+            cursor: pointer;
+        }
+
+        .border {
+            width: 4px;
+            background: #D2D2D2;
+            height: 100%;
+        }
+
+        .pace_container {
+            padding: 1rem 1rem 1rem 0rem;
+            padding-right: 0.5rem;
+            border-right: 1px solid #D2D2D2;
+        }
+
+        .step_container {
+            padding: 1rem 0rem 1rem 1rem;
+            border-left: 1px solid #D2D2D2;
+        }
+
+        .middle_image {
+            margin: 0rem 1rem;
+            ;
+        }
+
+        .enroll_text {
+            font: 600 clamp(1.5rem, 2.5vw, 2.5rem)/clamp(1.5rem, 2.5vw, 3rem) Poppins;
+            color: #FFFFFF;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .calender_text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .calender_text span {
+            font: 500 1rem/normal Poppins;
+            color: #CECECE;
+        }
+
+        .input_container input {
+            border: none;
+            background: transparent;
+        }
+
+        .input_container input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font: 500 1rem/normal Poppins;
+            color: #545151;
+            height: 100%;
+            width: 100%;
+            padding-left: 1rem;
+        }
+
+        .input_container input::placeholder {
+            /*padding-left: 1rem;*/
+            color: #9A9A9A;
+            font: 400 1rem/normal Poppins;
+        }
+
+        input[type='checkbox'] {
+            accent-color: #0fa975;
+        }
+
+        input[type='radio'] {
+            accent-color: #CECECE;
+        }
+
+        input[type='radio']:checked {
+            accent-color: #0fa975;
+        }
+
+        input[type=number]::focus-visible {
+            border: none;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input::placeholder {
+            font: 400 14px/21px Poppins;
+            color: #707070;
+        }
+
+        .sq_box {
+            background: #E9EEF2;
+            padding: 13px;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .round_box {
+            margin-bottom: 1.5rem;
+        }
+
+        legend {
+            font: 400 14px/21px Poppins;
+            color: #707070;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            font: 400 12px/20px Poppins;
+            color: #828282;
+        }
+
+        .sq_box div {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        input::placeholder:after {
+            content: '*';
+            color: red;
+        }
+
+        textarea::placeholder {
+
+            color: #C9C9C9;
+        }
+
+        #contact_submit {
+            font: 600 1.2rem/normal
+        }
+
+        #course_validate,
+        #date_validate {
+            display: block;
+            color: red;
+            font-weight: 500;
+            margin-top: -1rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='first_page_container' id='first_page_container'>
+        <div class="left_side">
+            <div class="image_container">
+                <div class="pace_container">
+                    <img src="images/pace.png" alt="" width="100" height="50" />
+                </div>
+                <div class="middle_image">
+                    <img src="images/delhi_police.png" alt="" width="80" height="70" />
+                </div>
+                <div class="step_container">
+                    <img src="images/stepapp.png" alt="" width="100" height="50" />
+                </div>
+            </div>
+            <div class="texts_container">
+                <p class="enroll_text">Enroll for PACE JEE/NEET<br> Live Program </p>
+                <div class="calender_text">
+                    <img src="images/calendar.png" alt="" width="24" />
+                    <span>Starting from April 16, 2023 </span>
+                </div>
+            </div>
+            <div class="enroll_container">
+                <div class="input_container">
+                    <img src='images/india_flag.png' alt='' width="35" height="20px" />
+                    <span>+91</span>
+                    <input type="text" maxlength="10" placeholder="10 digit mobile number" id="mobile_number"
+                        value="1234567980" />
+                </div>
+                <button class="enroll_now" onClick="handleEnrollNow()">Enroll now</button>
+            </div>
+        </div>
+        <div class="right_side">
+            <img src="images/right_side_image.png" alt="" width="400px" />
+        </div>
+    </div>
+    <div class="container" id='second_page_container' style='display: none;'>
+        <form id="contact" action="" method="post" onsubmit="return mySubmitFunction(event)">
+            <h3>StepApp Contact Form</h3>
+            <!-- <h4>Contact us for custom quote</h4> -->
+            <fieldset class="round_box">
+                <input placeholder="Your Name" id="name" type="text" tabindex="1" required autofocus>
+            </fieldset>
+            <fieldset class="round_box">
+
+                <select id="grade" tabindex="2" required>
+                    <option value='' disabled selected>Class/Grade</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </fieldset>
+
+            <fieldset class="round_box">
+                <input placeholder="School Name" id="school" type="text" tabindex="3" required>
+            </fieldset>
+            <fieldset class="round_box">
+                <input placeholder="Parent's Email id (optional)" id="email" type="email" tabindex="4">
+            </fieldset>
+            <div class="sq_box">
+
+                <fieldset id="courses_filedset">
+                    <legend>
+                        Courses you would be interested in (can choose more than one option).<span
+                            style="color: red;">*</span></legend>
+                    <span id="course_validate" style="display: none;">*select any one course</span>
+                    <div>
+                        <input type="checkbox" value="JEE">
+                        <label for="JEE">JEE</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" value="NEET">
+                        <label for="NEET">NEET</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" value="KVPY">
+                        <label for="NEET">KVPY</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" value="NSEJS">
+                        <label for="NSEJS">NSEJS</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" value="IJSO">
+                        <label for="IJSO">IJSO</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" value="RMO">
+                        <label for="RMO">RMO</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" value="NSTSE">
+                        <label for="NSTSE">NSTSE</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" value="Boards">
+                        <label for="Boards">Boards</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" value="Study Abroad">
+                        <label for="Abroad">Study Abroad</label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="sq_box">
+                <fieldset id="profession_fieldset">
+                    <legend>Are you son or a daughter of Police Personnel who is </legend>
+                    <div>
+                        <input type="radio" name="profession" value="Working">
+                        <label for="Working">Working</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="profession" value="Retired">
+                        <label for="Retired">Retired</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="profession" value="Deceased">
+                        <label for="Deceased">Deceased</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="profession" value="NotApplicable" checked>
+                        <label for="NotApplicable">Not Applicable</label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="sq_box">
+                <fieldset>
+                    <legend>Rank and Place of posting/last posting of your graduation in Delhi Police </legend>
+                    <textarea id="other" placeholder="Your Answer" style="
+                border-radius: 8px;" rows="1" maxlength="50" tabindex="7"></textarea>
+                </fieldset>
+            </div>
+            <div class="sq_box">
+                <fieldset>
+                    <legend>Personnel Identification System (PIS) Number </legend>
+
+                    <textarea id="PIS_number" placeholder="Your Answer" style="
+                border-radius: 8px;" rows="1" maxlength="50" tabindex="8"></textarea>
+                </fieldset>
+            </div>
+            <div class="sq_box">
+                <fieldset id="date_filedset">
+                    <legend>
+                        For which date you are interested for Super 100 Test ? <span style="color: red;">*</span>
+                    </legend>
+                    <span id="date_validate" style="display: none;">*select any one date</span>
+                    <div>
+                        <input type="radio" name="date" value="13th May 2023">
+                        <label for="louie">13th May 2023</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="date" value="14th May 2023">
+                        <label for="louie">14th May 2023</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="date" value="15th May 2023">
+                        <label for="louie">15th May 2023</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="date" value="16th May 2023">
+                        <label for="louie">16th May 2023</label>
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <fieldset>
+                <textarea id="other_queries" placeholder="Any other queries (optional)" style="
+                border: none;border-radius: 8px !important;padding: 13px;margin-bottom: 0.8rem;" rows="4"
+                    maxlength="150" tabindex="10"></textarea>
+            </fieldset>
+
+            <fieldset>
+                <button type="submit" name="submit" id="contact_submit">Submit</button>
+            </fieldset>
+
+            <div style="display: flex;flex-direction: column;align-items: center;">
+                <span style="font: 400 14px/21px Poppins; color: #404040;text-decoration: underline;
+                    margin-bottom: 14px;margin-top: 34px;text-align: center;">For
+                    any
+                    assistance, please call on the below numbers </span>
+
+                <div style=" display: flex;align-items:center;justify-content: center;">
+                    <img src="./images/call.png" width="12px" height="12px" />
+                    <span
+                        style="padding-left: 5px;font: 400 10px/15px Poppins; color: #989898;text-align: center;">Deepali
+                        Paliwal:
+                        8655615438, Ravi Rawat: 9582633552, Office: 011-35001582 </span>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+
+        let first_page_container = document.getElementById('first_page_container')
+        let second_page_container = document.getElementById('second_page_container')
+        let mobileNumber = document.getElementById('mobile_number')
+
+        let Grade = document.getElementById("grade")
+        let coursesFiledset = document.getElementById('courses_filedset')
+        let professionFieldset = document.getElementById('profession_fieldset')
+        let dateFiledset = document.getElementById('date_filedset')
+        let PISNumber = document.getElementById('PIS_number')
+
+        let dateValidate = document.getElementById('date_validate')
+        let courseValidate = document.getElementById('course_validate')
+
+        let otherQueries = document.getElementById('other_queries')
+        let contactSubmit = document.getElementById('contact_submit')
+
+        let selectedNumber = ''
+        let selectedName = ''
+        let selectedGrade = ''
+        let selectedSchool = ''
+        let selectedParentEmail = ''
+        let selectedCourses = []
+        let selectedProfession = 'Not Applicable'
+        let selectedRankandplace = ''
+        let selectedPIS = ''
+        let selectedDate = ''
+        let selectedQueries = ''
+
+        coursesFiledset.addEventListener('change', (event) => {
+            const checkboxes = coursesFiledset.getElementsByTagName('input');
+
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedCourses.push(checkboxes[i].value);
+                }
+            }
+
+            console.log('Selected_Checkbox_Values:', selectedCourses);
+        })
+
+        professionFieldset.addEventListener('change', (event) => {
+            const radioBox = professionFieldset.querySelectorAll('input[name="profession"]');
+
+            for (let i = 0; i < radioBox.length; i++) {
+                if (radioBox[i].checked) {
+                    selectedProfession = radioBox[i].value;
+                    break;
+                }
+            }
+            console.log('selectedProfession', selectedProfession)
+        })
+
+        dateFiledset.addEventListener('change', (event) => {
+            const radioBox = dateFiledset.querySelectorAll('input[name="date"]');
+
+            for (let i = 0; i < radioBox.length; i++) {
+                if (radioBox[i].checked) {
+                    selectedDate = radioBox[i].value;
+                    break;
+                }
+            }
+            console.log('selectedDate', selectedDate)
+        })
+
+        const validate = () => {
+            if (selectedCourses.length == 0) {
+                course_validate.style.display = 'block'
+            }
+            if (selectedDate == '') {
+                dateValidate.style.display = 'block'
+            }
+        }
+
+        contactSubmit.addEventListener('click', () => {
+            courseValidate.style.display = 'none'
+            date_validate.style.display = 'none'
+
+            validate()
+            selectedPIS = PISNumber.value
+            selectedQueries = otherQueries.value
+
+            console.log('details',
+                selectedNumber,
+                selectedName,
+                selectedGrade,
+                selectedSchool,
+                selectedParentEmail,
+                selectedCourses,
+                selectedProfession,
+                selectedRankandplace,
+                selectedPIS,
+                selectedDate,
+                selectedQueries)
+        })
+
+        function onSubmit() {
+
+            const data = {
+            }
+
+            fetch(
+                "https://script.google.com/macros/s/AKfycbzz0k-98JjP6swxccf6bzHLwyqXDP-5A7NhzKtNvIOlQrrDoDz4/exec",
+                {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                }
+            )
+                .then((response) => response.text())
+                .then((result) => {
+                    showSuccessMessage(this.props.t("feedback_popup.feedback_saved"));
+
+                    this.setState({ loading: false });
+                })
+                .catch((error) => this.setState({ loading: false }));
+        };
+
+
+        function mySubmitFunction(e) {
+            e.preventDefault();
+            onSubmit();
+            return false;
+        }
+
+        const handleEnrollNow = () => {
+            selectedNumber = mobileNumber.value
+
+            if (selectedNumber.length == 0) {
+                alert('Mobile number required')
+                return
+            }
+            if (selectedNumber.length <= 9) {
+                console.log('this_one', selectedNumber)
+                alert('Invalid Number')
+            }
+            if (selectedNumber.length == 10) {
+                let inputValue = selectedNumber.toLowerCase()
+                var alphabet = 'abcdefghijklmnopqrstuvwxyz';
+                var containsWord = false
+
+                for (var i = 0; i < alphabet.length; i++) {
+                    var letter = alphabet[i];
+                    if (inputValue.includes(letter)) {
+                        containsWord = true;
+                        break;
+                    }
+                }
+
+                if (containsWord) {
+                    alert('Mobile Number should not contain alphabet')
+                } else {
+                    first_page_container.style.display = 'none'
+                    second_page_container.style.display = 'block'
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
