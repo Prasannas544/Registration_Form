@@ -141,8 +141,8 @@
             outline: none;
             padding: 0;
             border-bottom: 1px solid #C9C9C9;
-            height: 3rem;
-            padding-left: 1rem;
+            /*height: 3rem;*/
+            /*padding-left: 1rem;*/
         }
 
         ::-webkit-input-placeholder {
@@ -412,6 +412,10 @@
             margin-top: -1rem;
             font-style: italic;
         }
+        #name:focus, #Grade:focus, #email:focus, #school:focus {
+            height: 2.5rem !important;
+            padding-left: 1rem !important;
+        }
     </style>
 </head>
 
@@ -440,8 +444,7 @@
                 <div class="input_container">
                     <img src='images/india_flag.png' alt='' width="35" height="20px" />
                     <span>+91</span>
-                    <input type="text" maxlength="10" placeholder="10 digit mobile number" id="mobile_number"
-                        value="1234567980" />
+                    <input type="text" maxlength="10" placeholder="10 digit mobile number" id="mobile_number" />
                 </div>
                 <button class="enroll_now" onClick="handleEnrollNow()">Enroll now</button>
             </div>
@@ -646,54 +649,56 @@
         let selectedDate = ''
         let selectedQueries = ''
 
-        coursesFiledset.addEventListener('change', (event) => {
+        coursesFiledset.addEventListener('change',(event) => {
             const checkboxes = coursesFiledset.getElementsByTagName('input');
             selectedCourses = []
-            for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
+            for(let i = 0; i < checkboxes.length; i++) {
+                if(checkboxes[i].checked) {
                     selectedCourses.push(checkboxes[i].value);
                 } else {
 
                 }
             }
 
-            console.log('Selected_Checkbox_Values:', selectedCourses);
+            console.log('Selected_Checkbox_Values:',selectedCourses);
         })
 
-        professionFieldset.addEventListener('change', (event) => {
+        professionFieldset.addEventListener('change',(event) => {
             const radioBox = professionFieldset.querySelectorAll('input[name="profession"]');
 
-            for (let i = 0; i < radioBox.length; i++) {
-                if (radioBox[i].checked) {
+            for(let i = 0; i < radioBox.length; i++) {
+                if(radioBox[i].checked) {
                     selectedProfession = radioBox[i].value;
                     break;
                 }
             }
-            console.log('selectedProfession', selectedProfession)
+            console.log('selectedProfession',selectedProfession)
         })
 
-        dateFiledset.addEventListener('change', (event) => {
+        dateFiledset.addEventListener('change',(event) => {
             const radioBox = dateFiledset.querySelectorAll('input[name="date"]');
 
-            for (let i = 0; i < radioBox.length; i++) {
-                if (radioBox[i].checked) {
+            for(let i = 0; i < radioBox.length; i++) {
+                if(radioBox[i].checked) {
                     selectedDate = radioBox[i].value;
                     break;
                 }
             }
-            console.log('selectedDate', selectedDate)
+            console.log('selectedDate',selectedDate)
         })
 
         const validate = () => {
-            if (selectedCourses.length == 0) {
+            if(selectedCourses.length == 0) {
                 course_validate.style.display = 'block'
             }
-            if (selectedDate == '') {
+            if(selectedDate == '') {
                 dateValidate.style.display = 'block'
             }
         }
 
-        contactSubmit.addEventListener('click', () => {
+        async function onSubmit() {
+            contactSubmit.disabled = true
+
             courseValidate.style.display = 'none'
             date_validate.style.display = 'none'
             selectedName = name.value;
@@ -718,11 +723,6 @@
                 selectedPIS,
                 selectedDate,
                 selectedQueries)
-        })
-
-        function onSubmit() {
-
-
 
             const data = {
                 Mobile: selectedNumber,
@@ -738,18 +738,37 @@
                 Other: selectedQueries
             }
 
-            fetch(
-                "https://script.google.com/macros/s/AKfycbzCTzHY1sjgpW0EAqxcIq86UCOmD7iQxtXcX7YwtVPNOiLF2F5jp9JuRkFP5CTpP92Bgg/exec",
+           await fetch(
+                "https://script.google.com/macros/s/AKfycbyRaIYT2gjg8N0VR5mpx088FH7hnTEfVa6FAqQf5DpDZAsdF-yHws_PL2-jkYRsO1NTZQ/exec",
                 {
                     method: "POST",
                     body: JSON.stringify(data),
                 }
             )
-                .then((response) => response.text())
-                .then((result) => {
-                    alert('Success')
+                .then((response) => {
+                    response.text()
                 })
-                .catch((error) => { alert('Failed') });
+                .then((result) => {
+                    alert('successfully registered')
+                })
+                .catch((error) => {
+                    //alert('failed')
+                });
+                selectedNumber = ''
+                selectedName = ''
+                selectedGrade = ''
+                selectedSchool = ''
+                selectedParentEmail = ''
+                selectedCourses = []
+                selectedProfession = 'Not Applicable'
+                selectedRankandplace = ''
+                selectedPIS = ''
+                selectedDate = ''
+                selectedQueries = ''
+                first_page_container.style.display = 'flex'
+                second_page_container.style.display = 'none'
+                console.log('selectedNumber', selectedNumber)
+                location.reload()
         };
 
 
@@ -762,28 +781,28 @@
         const handleEnrollNow = () => {
             selectedNumber = mobileNumber.value
 
-            if (selectedNumber.length == 0) {
+            if(selectedNumber.length == 0) {
                 alert('Mobile number required')
                 return
             }
-            if (selectedNumber.length <= 9) {
-                console.log('this_one', selectedNumber)
+            if(selectedNumber.length <= 9) {
+                console.log('this_one',selectedNumber)
                 alert('Invalid Number')
             }
-            if (selectedNumber.length == 10) {
+            if(selectedNumber.length == 10) {
                 let inputValue = selectedNumber.toLowerCase()
                 var alphabet = 'abcdefghijklmnopqrstuvwxyz';
                 var containsWord = false
 
-                for (var i = 0; i < alphabet.length; i++) {
+                for(var i = 0; i < alphabet.length; i++) {
                     var letter = alphabet[i];
-                    if (inputValue.includes(letter)) {
+                    if(inputValue.includes(letter)) {
                         containsWord = true;
                         break;
                     }
                 }
 
-                if (containsWord) {
+                if(containsWord) {
                     alert('Mobile Number should not contain alphabet')
                 } else {
                     first_page_container.style.display = 'none'
