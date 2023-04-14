@@ -544,7 +544,7 @@
             <div class="sq_box">
                 <fieldset>
                     <legend>Rank and Place of posting/last posting of your graduation in Delhi Police </legend>
-                    <textarea id="other" placeholder="Your Answer" style="
+                    <textarea id="posting" placeholder="Your Answer" style="
                 border-radius: 8px;" rows="1" maxlength="50" tabindex="7"></textarea>
                 </fieldset>
             </div>
@@ -618,7 +618,10 @@
         let first_page_container = document.getElementById('first_page_container')
         let second_page_container = document.getElementById('second_page_container')
         let mobileNumber = document.getElementById('mobile_number')
-
+        let name = document.getElementById('name')
+        let email = document.getElementById('email')
+        let school = document.getElementById('school')
+        let posting = document.getElementById('posting')
         let Grade = document.getElementById("grade")
         let coursesFiledset = document.getElementById('courses_filedset')
         let professionFieldset = document.getElementById('profession_fieldset')
@@ -645,10 +648,12 @@
 
         coursesFiledset.addEventListener('change', (event) => {
             const checkboxes = coursesFiledset.getElementsByTagName('input');
-
+            selectedCourses = []
             for (let i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].checked) {
                     selectedCourses.push(checkboxes[i].value);
+                } else {
+
                 }
             }
 
@@ -691,6 +696,11 @@
         contactSubmit.addEventListener('click', () => {
             courseValidate.style.display = 'none'
             date_validate.style.display = 'none'
+            selectedName = name.value;
+            selectedGrade = Grade.value;
+            selectedParentEmail = email.value;
+            selectedSchool = school.value;
+            selectedRankandplace = posting.value;
 
             validate()
             selectedPIS = PISNumber.value
@@ -712,11 +722,24 @@
 
         function onSubmit() {
 
+
+
             const data = {
+                Mobile: selectedNumber,
+                Name: selectedName,
+                Class: selectedGrade,
+                School_Name: selectedSchool,
+                Parent_Email: selectedParentEmail,
+                Courses: selectedCourses.join(','),
+                Profession: selectedProfession,
+                Posting: selectedRankandplace,
+                PIS: selectedPIS,
+                Exam_Date: selectedDate,
+                Other: selectedQueries
             }
 
             fetch(
-                "https://script.google.com/macros/s/AKfycbzz0k-98JjP6swxccf6bzHLwyqXDP-5A7NhzKtNvIOlQrrDoDz4/exec",
+                "https://script.google.com/macros/s/AKfycbzCTzHY1sjgpW0EAqxcIq86UCOmD7iQxtXcX7YwtVPNOiLF2F5jp9JuRkFP5CTpP92Bgg/exec",
                 {
                     method: "POST",
                     body: JSON.stringify(data),
@@ -724,11 +747,9 @@
             )
                 .then((response) => response.text())
                 .then((result) => {
-                    showSuccessMessage(this.props.t("feedback_popup.feedback_saved"));
-
-                    this.setState({ loading: false });
+                    alert('Success')
                 })
-                .catch((error) => this.setState({ loading: false }));
+                .catch((error) => { alert('Failed') });
         };
 
 
